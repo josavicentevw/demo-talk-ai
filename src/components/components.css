@@ -1,0 +1,540 @@
+/* ========================================
+   GAME BOARD
+   ======================================== */
+
+.game-board-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.game-board {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  .game-board {
+    gap: 0.5rem;
+  }
+}
+
+/* ========================================
+   SCORE PANEL
+   ======================================== */
+
+.score-panel {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.player-card {
+  flex: 1;
+  max-width: 300px;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+  position: relative;
+}
+
+.active-turn-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: white;
+  padding: 0.375rem 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 12px rgba(255, 0, 0, 0.4);
+  animation: pulse-badge 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) scale(1.05);
+  }
+}
+
+.player-card.active {
+  border-color: #ffde00;
+  border-width: 5px;
+  box-shadow: 0 0 30px rgba(255, 222, 0, 0.8), 0 0 60px rgba(255, 222, 0, 0.4);
+  transform: scale(1.08);
+  background: linear-gradient(135deg, #fffef0 0%, #fff9d6 100%);
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.wins-badge {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  color: #333;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+
+.score-display {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.score-value {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff0000 0%, #0000ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.score-label {
+  display: block;
+  font-size: 0.875rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background: #f8f9fa;
+  border-radius: 0.375rem;
+}
+
+.stat-label {
+  color: #666;
+}
+
+.stat-value {
+  font-weight: 600;
+  color: #333;
+}
+
+.vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff0000 0%, #0000ff 100%);
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .score-panel {
+    flex-direction: column;
+  }
+
+  .vs-divider {
+    transform: rotate(90deg);
+  }
+}
+
+/* ========================================
+   PLAYER NAME EDITOR
+   ======================================== */
+
+.player-name-editor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.player-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 0.25rem;
+}
+
+.player-name-editor:hover .edit-icon {
+  opacity: 1;
+}
+
+.player-name-editor.editing {
+  cursor: default;
+}
+
+.name-input {
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid #ffde00;
+  border-radius: 0.375rem;
+  outline: none;
+  width: 100%;
+}
+
+/* ========================================
+   GAME CONTROLS
+   ======================================== */
+
+.game-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+  color: white;
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, #0000ff 0%, #0000cc 100%);
+  color: white;
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  border-top: 2px solid #e9ecef;
+}
+
+/* ========================================
+   CONFIG MODAL
+   ======================================== */
+
+.config-section {
+  margin-bottom: 1.5rem;
+}
+
+.config-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.pairs-selector {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-adjust {
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border: 2px solid #0000ff;
+  background: white;
+  color: #0000ff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-adjust:hover:not(:disabled) {
+  background: #0000ff;
+  color: white;
+}
+
+.btn-adjust:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.pairs-input {
+  width: 80px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: 2px solid #ffde00;
+  border-radius: 0.5rem;
+}
+
+.config-hint {
+  text-align: center;
+  margin-top: 0.75rem;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.preset-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-preset {
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 2px solid #0000ff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-preset:hover {
+  background: linear-gradient(135deg, #0000ff 0%, #0000cc 100%);
+  color: white;
+}
+
+/* ========================================
+   VICTORY MODAL
+   ======================================== */
+
+.victory-modal .modal-body {
+  text-align: center;
+}
+
+.victory-emoji {
+  font-size: 4rem;
+  margin: 1rem 0;
+}
+
+.final-scores {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.player-final-score {
+  flex: 1;
+  max-width: 200px;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+  border: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.player-final-score.winner {
+  border-color: #ffd700;
+  background: linear-gradient(135deg, #fffef0 0%, #fff9d6 100%);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.player-final-score h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  color: #333;
+}
+
+.final-score-value {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ff0000 0%, #0000ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.final-stats {
+  font-size: 0.875rem;
+  color: #666;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* ========================================
+   GAME HISTORY
+   ======================================== */
+
+.game-history {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1.5rem;
+}
+
+.history-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.history-empty {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.history-item {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  border-left: 4px solid #0000ff;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.history-time {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.history-winner {
+  font-weight: bold;
+  color: #333;
+}
+
+.history-scores {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.score-item {
+  flex: 1;
+}
+
+.score-divider {
+  font-weight: bold;
+}
