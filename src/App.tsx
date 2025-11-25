@@ -21,6 +21,7 @@ function App() {
   const {
     status,
     config,
+    cards,
     player1,
     player2,
     matchedPairs,
@@ -28,6 +29,8 @@ function App() {
     setPlayerName,
     resetForNewGame,
     setStatus,
+    endTimer,
+    getDuration,
   } = useGameStore();
 
   const {
@@ -66,6 +69,24 @@ function App() {
   // Detectar victoria y registrar en historial
   useEffect(() => {
     if (status === 'playing' && matchedPairs === config.pairCount && !isVictoryOpen) {
+      // Marcar fin del timer
+      endTimer();
+      const duration = getDuration();
+
+      // Extraer Pokémon únicos del array de cartas
+      const uniquePokemons = Array.from(
+        new Map(
+          cards.map(card => [
+            card.pokemonId,
+            {
+              id: card.pokemonId,
+              name: card.pokemonName,
+              sprite: card.sprite,
+            }
+          ])
+        ).values()
+      );
+
       // Game finished, determine winner
       let winner: 1 | 2 | 'tie';
       if (player1.score > player2.score) {
@@ -86,6 +107,8 @@ function App() {
         player2Name: player2.name,
         player2Score: player2.score,
         winner,
+        duration,
+        pokemons: uniquePokemons,
       };
 
       addGameToHistory(gameResult);
@@ -93,7 +116,7 @@ function App() {
       setStatus('finished');
       setIsVictoryOpen(true);
     }
-  }, [status, matchedPairs, config.pairCount, isVictoryOpen, player1.score, player2.score, player1.name, player2.name, addGameToHistory, incrementWins, setStatus]);
+  }, [status, matchedPairs, config.pairCount, isVictoryOpen, cards, player1.score, player2.score, player1.name, player2.name, addGameToHistory, incrementWins, setStatus, endTimer, getDuration]);
 
   const handleStartNewGame = async (pairCount?: number) => {
     try {

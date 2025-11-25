@@ -40,6 +40,7 @@ export function Card({ card }: CardProps) {
               src={card.sprite}
               alt={card.pokemonName}
               className="pokemon-sprite"
+              style={{ width: '175%', maxWidth: '350px', height: 'auto' }}
             />
           )}
           <p className="pokemon-name">{card.pokemonName}</p>

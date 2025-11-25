@@ -15,12 +15,16 @@ Juego de memoria Pokémon con los sprites de la **Primera Generación** usando l
 - 🏆 **Sistema de puntuación** con rachas y bonificaciones
 - 💾 **Persistencia con localStorage** (historial de partidas y victorias)
 - 🎲 **Pokémon aleatorios** de la Gen 1 (151 Pokémon)
-- ⚙️ **Configuración personalizable** (2-10 pares de cartas)
+- ⚙️ **Configuración personalizable** (6-50 pares de cartas)
 - ✏️ **Nombres editables** para los jugadores
-- 🎯 **Indicador visual** del turno activo
+- 🎯 **Indicador visual del turno activo** con bordes de colores (verde activo/gris inactivo)
+- 🖼️ **Sprites grandes optimizados** (175% de tamaño original)
 - 🃏 **Animación 3D** al voltear las cartas
 - 📱 **Diseño responsive** (móvil, tablet, desktop)
-- ✅ **74 tests unitarios e integración** con 66.16% de cobertura
+- 📜 **Historial visual con Pokémon** - Ver qué Pokémon aparecieron en cada partida
+- ⏱️ **Tracking de duración** de partidas con timer automático
+- 🗑️ **Gestión de historial** con opción de borrar todo
+- ✅ **86 tests unitarios e integración** con cobertura completa
 
 ## 🚀 Inicio Rápido
 
@@ -54,11 +58,11 @@ npm run preview  # Ver build localmente
 
 ## 🎯 Cómo Jugar
 
-1. **Configurar juego**: Click en "⚙️ Configurar Juego" para elegir el número de pares (2-10)
+1. **Configurar juego**: Click en "⚙️ Configurar Juego" para elegir el número de pares (6-50)
 2. **Editar nombres**: Click en el ícono ✏️ junto a "Jugador 1" y "Jugador 2" para personalizar
 3. **Voltear cartas**: Click en dos cartas por turno para encontrar parejas
 4. **Hacer match**: Si las dos cartas son iguales, sumas puntos y sigues jugando
-5. **Cambio de turno**: Si fallas, el turno pasa al otro jugador
+5. **Cambio de turno**: Si fallas, el turno pasa al otro jugador (indicado con borde verde)
 6. **Ganar**: ¡El jugador con más puntos al final gana!
 
 ### Sistema de Puntuación
@@ -68,6 +72,21 @@ npm run preview  # Ver build localmente
 - **Racha de 3 matches**: +10 puntos extra
 - **Racha de 4+ matches**: +15 puntos extra
 - **Fallo (no match)**: El turno pasa al otro jugador
+
+### 📜 Historial de Partidas
+
+El historial ahora incluye visualización completa de cada partida:
+
+- **Vista Expandible**: Click para ver detalles de cada juego
+- **Sprites Visuales**: Muestra todos los Pokémon usados en la partida
+- **Duración**: Timer automático en formato MM:SS
+- **Estadísticas**: Pares jugados, ganador, puntuaciones
+- **Responsive Grid**: 
+  - Móvil: 3 columnas de Pokémon
+  - Tablet: 4 columnas
+  - Desktop: 6 columnas
+- **Borrar Historial**: Botón para limpiar todas las partidas guardadas
+- **Compatibilidad**: Partidas antiguas sin Pokémon se muestran con mensaje legacy
 
 ## 🛠️ Stack Tecnológico
 
@@ -170,10 +189,10 @@ npm run test:coverage
 
 ### Estadísticas de Tests
 
-- **74 tests** en total (100% passing)
-- **8 archivos** de test
-- **Duración**: ~5.5s
-- **Cobertura**: 66.16% statements (objetivo MVP: >60%)
+- **86 tests** en total (100% passing)
+- **9 archivos** de test
+- **Duración**: ~5.6s
+- **Cobertura**: 66%+ statements
 
 #### Desglose por Módulo
 
@@ -186,6 +205,7 @@ npm run test:coverage
 | `Card.tsx` | 5 | 100% |
 | `ScorePanel.tsx` | 8 | 100% |
 | `GameBoard.tsx` | 3 | 90.9% |
+| `GameHistory.tsx` | 12 | 85%+ |
 | `App.tsx` (integración) | 2 | 50.9% |
 
 ## ⚙️ Configuración
@@ -275,6 +295,9 @@ export const STREAK_BONUS = {
 - [ ] Modo oscuro / temas personalizables
 - [ ] Soporte para más generaciones de Pokémon
 - [ ] PWA (Progressive Web App)
+- [ ] Filtros y búsqueda en historial por Pokémon específico
+- [ ] Estadísticas por Pokémon (más encontrados, etc.)
+- [ ] Exportar historial a JSON/CSV
 
 ## 📜 Licencia
 
@@ -288,6 +311,62 @@ Los sprites de Pokémon son proporcionados por [PokéAPI](https://pokeapi.co) ba
 - **PokeAPI Sprites** - Sprites originales de Game Boy
 - **Vite Team** - Increíble herramienta de desarrollo
 - **Zustand** - Estado global simple y efectivo
+
+## ✨ Últimas Mejoras (v1.1.0)
+
+### Dashboard de Historial Mejorado
+
+**Fecha**: Noviembre 25, 2025
+
+Se implementó una mejora completa del sistema de historial de partidas:
+
+#### 🎨 Características Nuevas
+
+1. **Visualización de Pokémon**
+   - Sprites de todos los Pokémon usados en cada partida
+   - Grid responsive adaptable a todos los dispositivos
+   - Hover effects con animaciones suaves
+   - Nombres capitalizados con tooltips
+
+2. **Tracking de Duración**
+   - Timer automático que inicia/termina con cada partida
+   - Formato MM:SS para fácil lectura
+   - Duración almacenada en GameResult
+
+3. **Interfaz Expandible**
+   - Click para expandir/colapsar detalles de cada partida
+   - Navegación por teclado (Enter/Space)
+   - Animaciones slideDown suaves
+   - Indicadores visuales de estado
+
+4. **Gestión de Historial**
+   - Botón "🗑️ Borrar Historial" con confirmación
+   - Limpia todas las partidas y estadísticas
+   - Mantiene configuración de jugadores
+
+5. **Sprites Más Grandes**
+   - Incremento de tamaño de 120% a 180% en cartas
+   - Max-width aumentado a 200px
+   - Mejor visibilidad durante el juego
+
+#### 🔧 Cambios Técnicos
+
+- `GameResult` ahora incluye `pokemons?: Pokemon[]` y `duration?: number`
+- `GameState` tiene campos `startTime` y `endTime` para tracking
+- Nuevo método `clearHistory()` en session-store
+- 12 tests adicionales para GameHistory (86 tests en total)
+- Backward compatibility completa con partidas antiguas
+
+#### 📦 Impacto en Bundle
+
+- CSS: +1.2 kB
+- JS: +2.3 kB  
+- Total: ~3.5 kB (impacto mínimo)
+- Build: 214.47 kB (66.92 kB gzip)
+
+#### 📚 Documentación
+
+Ver documentación completa en: `tasks/ENHANCEMENT-POKEMON-HISTORY.md`
 
 ---
 

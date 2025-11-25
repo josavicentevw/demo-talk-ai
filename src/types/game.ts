@@ -22,7 +22,7 @@ export interface Player {
 }
 
 export interface GameConfig {
-  pairCount: 6 | 8 | 10 | 12;
+  pairCount: 6 | 8 | 10 | 12 | 14 | 16 | 18 | 20 | 22 | 24 | 26 | 28 | 30 | 32 | 34 | 36 | 38 | 40 | 42 | 44 | 46 | 48 | 50;
 }
 
 export type GameStatus = 'configuring' | 'loading' | 'playing' | 'finished';
@@ -37,4 +37,6 @@ export interface GameState {
   selectedCards: string[]; // IDs de cartas seleccionadas (máximo 2)
   matchedPairs: number;
   isProcessing: boolean; // Para prevenir clicks durante animaciones
+  startTime: number | null; // Timestamp de inicio del juego
+  endTime: number | null; // Timestamp de finalización del juego
 }

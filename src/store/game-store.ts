@@ -31,6 +31,8 @@ const initialState: GameState = {
   selectedCards: [],
   matchedPairs: 0,
   isProcessing: false,
+  startTime: null,
+  endTime: null,
 };
 
 interface GameStore extends GameState {
@@ -41,6 +43,9 @@ interface GameStore extends GameState {
   // Acciones de inicialización
   initializeGame: (cards: Card[]) => void;
   setStatus: (status: GameState['status']) => void;
+  startTimer: () => void;
+  endTimer: () => void;
+  getDuration: () => number;
 
   // Acciones de juego
   selectCard: (cardId: string) => void;
@@ -90,9 +95,22 @@ export const useGameStore = create<GameStore>((set, get) => ({
       selectedCards: [],
       matchedPairs: 0,
       isProcessing: false,
+      startTime: Date.now(),
+      endTime: null,
     }),
 
   setStatus: (status) => set({ status }),
+
+  startTimer: () => set({ startTime: Date.now(), endTime: null }),
+
+  endTimer: () => set({ endTime: Date.now() }),
+
+  getDuration: () => {
+    const state = get();
+    if (!state.startTime) return 0;
+    const end = state.endTime || Date.now();
+    return Math.floor((end - state.startTime) / 1000); // Retorna duración en segundos
+  },
 
   // Juego
   selectCard: (cardId) =>
@@ -245,6 +263,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
         selectedCards: [],
         matchedPairs: 0,
         isProcessing: false,
+        startTime: Date.now(),
+        endTime: null,
       };
     }),
 

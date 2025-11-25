@@ -2,6 +2,8 @@
  * Tipos para la gestión de sesión e historial
  */
 
+import type { Pokemon } from './pokemon';
+
 export interface GameResult {
   id: string;
   timestamp: Date;
@@ -11,7 +13,8 @@ export interface GameResult {
   player2Name: string;
   player2Score: number;
   winner: 1 | 2 | 'tie';
-  duration?: number; // Duración en segundos (opcional para futuras implementaciones)
+  duration?: number; // Duración en segundos
+  pokemons?: Pokemon[]; // Pokémon únicos usados en la partida (opcional para backward compatibility)
 }
 
 export interface GameHistory {

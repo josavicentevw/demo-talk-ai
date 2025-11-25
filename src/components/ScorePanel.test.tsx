@@ -76,9 +76,11 @@ describe('ScorePanel', () => {
     expect(screen.getByText('3 🏆')).toBeDefined();
   });
 
-  it('shows active turn badge for player 1', () => {
+  it('shows active player with green border', () => {
     render(<ScorePanel />);
-    expect(screen.getByText('🎯 TU TURNO')).toBeDefined();
+    const cards = document.querySelectorAll('.player-card');
+    expect(cards[0].classList.contains('active')).toBe(true);
+    expect(cards[1].classList.contains('active')).toBe(false);
   });
 
   it('displays streak for player 1', () => {

@@ -39,27 +39,28 @@ export function ConfigModal({
             </label>
             <div className="pairs-selector">
               <button
-                onClick={() => setPairs(Math.max(4, pairs - 1))}
+                onClick={() => setPairs(Math.max(6, pairs - 2))}
                 className="btn-adjust"
-                disabled={pairs <= 4}
+                disabled={pairs <= 6}
               >
                 -
               </button>
               <input
                 id="pairs-input"
                 type="number"
-                min="4"
-                max="15"
+                min="6"
+                max="50"
+                step="2"
                 value={pairs}
                 onChange={(e) =>
-                  setPairs(Math.min(15, Math.max(4, Number(e.target.value))))
+                  setPairs(Math.min(50, Math.max(6, Number(e.target.value))))
                 }
                 className="pairs-input"
               />
               <button
-                onClick={() => setPairs(Math.min(15, pairs + 1))}
+                onClick={() => setPairs(Math.min(50, pairs + 2))}
                 className="btn-adjust"
-                disabled={pairs >= 15}
+                disabled={pairs >= 50}
               >
                 +
               </button>
@@ -71,11 +72,14 @@ export function ConfigModal({
             <button onClick={() => setPairs(6)} className="btn-preset">
               Fácil (6 parejas)
             </button>
-            <button onClick={() => setPairs(10)} className="btn-preset">
-              Medio (10 parejas)
+            <button onClick={() => setPairs(12)} className="btn-preset">
+              Medio (12 parejas)
             </button>
-            <button onClick={() => setPairs(15)} className="btn-preset">
-              Difícil (15 parejas)
+            <button onClick={() => setPairs(20)} className="btn-preset">
+              Difícil (20 parejas)
+            </button>
+            <button onClick={() => setPairs(50)} className="btn-preset">
+              Extremo (50 parejas)
             </button>
           </div>
         </div>

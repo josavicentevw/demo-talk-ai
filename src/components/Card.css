@@ -52,7 +52,7 @@
   background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
   border: 3px solid #0000ff;
   transform: rotateY(180deg);
-  padding: 1rem;
+  padding: 0.1rem;
 }
 
 /* Matched card effect */
@@ -109,11 +109,12 @@
 
 /* Pokémon sprite */
 .pokemon-sprite {
-  width: 120%;
+  width: 175%;
   height: auto;
+  max-width: 350px;
+  object-fit: contain;
   image-rendering: pixelated;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
-  max-width: 150px;
 }
 
 /* Pokémon name */

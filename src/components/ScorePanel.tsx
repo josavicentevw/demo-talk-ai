@@ -14,13 +14,8 @@ export function ScorePanel() {
     <div className="score-panel">
       {/* Player 1 */}
       <div
-        className={`player-card ${
-          isPlayer1Active && gameStatus === 'playing' ? 'active' : ''
-        }`}
+        className={`player-card ${isPlayer1Active ? 'active' : ''}`}
       >
-        {isPlayer1Active && gameStatus === 'playing' && (
-          <div className="active-turn-badge">🎯 TU TURNO</div>
-        )}
         <div className="player-header">
           <PlayerNameEditor playerId={1} />
           <div className="wins-badge">{wins.player1Wins} 🏆</div>
@@ -47,20 +42,26 @@ export function ScorePanel() {
         </div>
       </div>
 
-      {/* VS Divider */}
+      {/* VS Divider with Active Player Indicator */}
       <div className="vs-divider">
-        <span>VS</span>
+        {gameStatus === 'playing' && (
+          <div className="turn-indicator">
+            <div className={`arrow-indicator ${isPlayer1Active ? 'left' : 'right'}`}>
+              {isPlayer1Active ? '◄' : '►'}
+            </div>
+            <div className="turn-text">
+              Turno de<br />
+              <strong>{isPlayer1Active ? player1.name : player2.name}</strong>
+            </div>
+          </div>
+        )}
+        <span className="vs-text">VS</span>
       </div>
 
       {/* Player 2 */}
       <div
-        className={`player-card ${
-          isPlayer2Active && gameStatus === 'playing' ? 'active' : ''
-        }`}
+        className={`player-card ${isPlayer2Active ? 'active' : ''}`}
       >
-        {isPlayer2Active && gameStatus === 'playing' && (
-          <div className="active-turn-badge">🎯 TU TURNO</div>
-        )}
         <div className="player-header">
           <PlayerNameEditor playerId={2} />
           <div className="wins-badge">{wins.player2Wins} 🏆</div>

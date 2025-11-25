@@ -31,6 +31,7 @@ interface SessionStore {
 
   // Acciones de historial
   addGameToHistory: (gameResult: GameResult) => void;
+  clearHistory: () => void;
 
   // Acciones de victorias
   incrementWins: (winner: 1 | 2 | 'tie') => void;
@@ -82,6 +83,26 @@ export const useSessionStore = create<SessionStore>((set, get) => ({
           lastUpdated: new Date(),
           history: {
             games: [...state.session.history.games, gameResult],
+          },
+        },
+      };
+    }),
+
+  clearHistory: () =>
+    set((state) => {
+      if (!state.session) return state;
+
+      return {
+        session: {
+          ...state.session,
+          lastUpdated: new Date(),
+          history: {
+            games: [],
+          },
+          wins: {
+            player1Wins: 0,
+            player2Wins: 0,
+            ties: 0,
           },
         },
       };
